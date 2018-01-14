@@ -53,7 +53,7 @@ def not_found(error):
 def login():
   auth = request.authorization
   if auth and auth.password == 'pypass':
-    token = jwt.encode({'user' : auth.username, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(seconds=30)},app.config['SECRET_KEY'])
+    token = jwt.encode({'user' : auth.username, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)},app.config['SECRET_KEY'])
     return jsonify({'token' : token.decode('UTF-8')})
   return make_response('Cloud not verify!', 401, {'WWW-Authenticate' : 'Basic realm="Login required"'})
 
