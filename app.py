@@ -9,7 +9,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'thisisthesecretkey'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/ubuntu/flask/data/todo.db'
+app.config['SQLALCHEMY_DATABASE_URI'] \
+    = 'sqlite:////home/ubuntu/flask/data/todo.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 db = SQLAlchemy(app)
@@ -62,14 +63,18 @@ def not_found(error):
 def login():
   auth = request.authorization
   if not auth or not auth.username or not auth.password:
-    return make_response('Cloud not verify!', 401, {'WWW-Authenticate' : 'Basic realm="Login required"'})
+    return make_response('Cloud not verify!', 401,
+        {'WWW-Authenticate' : 'Basic realm="Login required"'})
   user = User.query.filter_by(name=auth.username).first()
   if not user: 
-    return make_response('Cloud not verify!', 401, {'WWW-Authenticate' : 'Basic realm="Login required"'})
+    return make_response('Cloud not verify!', 401,
+        {'WWW-Authenticate' : 'Basic realm="Login required"'})
   if check_password_hash(user.password, auth.password):
-    token = jwt.encode({'public_id' : user.public_id, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)},app.config['SECRET_KEY'])
+    token = jwt.encode({'public_id' : user.public_id, 'exp' : datetime.datetime
+       .utcnow() + datetime.timedelta(minutes=30)},app.config['SECRET_KEY'])
     return jsonify({'token' : token.decode('UTF-8')})
-  return make_response('Cloud not verify!', 401, {'WWW-Authenticate' : 'Basic realm="Login required"'})
+  return make_response('Cloud not verify!', 401,
+      {'WWW-Authenticate' : 'Basic realm="Login required"'})
 
 @app.route('/api/v1.0/user', methods=['GET'])
 @token_required
@@ -109,7 +114,8 @@ def create_user(current_user):
     return jsonify({'message':'Admin authentication required!'}), 400
   data = request.get_json()
   hashed_password = generate_password_hash(data['password'], method='sha256')
-  new_user = User(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=False)
+  new_user = User(public_id=str(uuid.uuid4()), name=data['name'],
+    password=hashed_password, admin=False)
   db.session.add(new_user)
   db.session.commit()
   return jsonify({'message':'New user created!'}), 201
@@ -166,7 +172,8 @@ def create_task(current_user):
   if not request.json or not 'title' in request.json:
     abort(400)
   data = request.get_json()
-  new_task = Task(title=data['title'], description=data['description'], done=False, user_id=current_user.id)
+  new_task = Task(title=data['title'], description=data['description'],
+    done=False, user_id=current_user.id)
   db.session.add(new_task)
   db.session.commit()
   return jsonify({'message':'task was create'}), 201
@@ -186,7 +193,9 @@ def update_taks(current_user, task_id):
   if 'done' in request.json and type(request.json['done']) is not bool:
     abort(400)
   task[0]['title'] = request.json.get('title', task[0]['title'])
-  task[0]['description'] = request.json.get('description', task[0]['description'])
+  task[0]['description'] = request.json.get('description',
+      task[0]['description'])
+
   task[0]['done'] = request.json.get('done', task[0]['done'])
   return jsonify({'task': task[0]})
 
