@@ -72,7 +72,13 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
-    apt-get install -y htop curl wget git vim tmux python3-pip httpie jq
+    apt-get install -y htop curl wget git git-core zsh vim tmux python3-pip httpie jq
     pip install virtualenv
+  SHELL
+  end
+
+  config.vm.provision "shell", privileged:false, inline: <<-SHELL
+    wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+    chsh -s `which zsh`
   SHELL
   end
