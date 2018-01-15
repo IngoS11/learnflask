@@ -80,5 +80,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", privileged:false, inline: <<-SHELL
     wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
     chsh -s `which zsh`
+    git clone http://github.com/IngoS11/dotfiles
+    cp dotfiles/* .
   SHELL
   end
