@@ -6,7 +6,8 @@ flask/server:
 
 db/setup:
 		@echo "--> setup database if not exists"
-		test -f data/tasks.db || mkdir -p data && python db_setup.py
+		test -f data/tasks.db || mkdir -p data && python manage.py db init && \
+python manage.py db migrate && python manage.py db upgrade
 
 pip/freeze:
 		@echo "--> updating python dependencies to requirements.txt"
