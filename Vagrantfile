@@ -8,7 +8,7 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/xenial64"
 
-# config.vm.network "forwarded_port", guest: 5000, host: 5000, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 5000, host: 5000, host_ip: "127.0.0.1"
   config.vm.provider "virtualbox" do |vb|
      # Display the VirtualBox GUI when booting the machine
      vb.gui = false
@@ -28,7 +28,6 @@ Vagrant.configure("2") do |config|
     if [ ! -d ".oh-my-zsh" ]; then
       wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
     fi
-    sudo chsh -s `which zsh`
     if [ ! -d "dotfiles" ]; then
       git clone http://github.com/IngoS11/dotfiles
     fi
