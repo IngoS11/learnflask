@@ -1,6 +1,9 @@
 env/
+.vagrant/
 __pycache__/
 *.swp
+*.log
+*.pyc
 tags
 data/*.db
 
