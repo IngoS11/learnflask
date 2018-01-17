@@ -9,11 +9,11 @@ from flask_migrate import Migrate, MigrateCommand
 
 COV = coverage.coverage(
     branch=True,
-    include='project/*',
     omit=[
-      'project/tests/*',
-      'project/server/config.py',
-      'project/server/*/__init__.py'
+      'tests/*',
+      'manage.py',
+      'env/*',
+      'venv/*'
     ]
 )
 COV.start()
@@ -31,7 +31,7 @@ manager.add_command('db', MigrateCommand)
 @manager.command
 def test():
   """Runs the unit tests without test coverage."""
-  tests = unittest.TestLoader().discover('project/tests', pattern='test*.py')
+  tests = unittest.TestLoader().discover('tests', pattern='test*.py')
   result = unittest.TextTestRunner(verbosity=2).run(tests)
   if result.wasSuccessful():
       return 0
@@ -40,7 +40,7 @@ def test():
 @manager.command
 def cov():
   """Runs the unit tests with coverage."""
-  tests = unittest.TestLoader().discover('project/tests')
+  tests = unittest.TestLoader().discover('tests')
   result = unittest.TextTestRunner(verbosity=2).run(tests)
   if result.wasSuccessful():
       COV.stop()

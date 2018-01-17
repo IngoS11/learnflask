@@ -4,14 +4,13 @@ from flask_sqlalchemy import SQLAlchemy
 import jwt
 import uuid
 import datetime
+import os
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'thisisthesecretkey'
-app.config['SQLALCHEMY_DATABASE_URI'] \
-    = 'sqlite:///data/tasks.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app_settings = os.getenv('APP_SETTINGS', 'config.DevelopmentConfig')
+app.config.from_object(app_settings)
 
 db = SQLAlchemy(app)
 

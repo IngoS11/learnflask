@@ -8,7 +8,6 @@ jobs:
 
     steps:
       - checkout
-#      - run: sudo apt install -y sqlite3
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
@@ -17,15 +16,20 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
+      - run: mkdir -p data/
       - run:
           name: initialize database
           command: |
             . venv/bin/activate
-            mkdir -p data/
             python manage.py db init
             python manage.py db migrate
-            python manage.py db upgrade 
+            python manage.py db upgrade
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - "venv"
+      - run:
+          name: Run Tests
+          command: |
+            . venv/bin/activate
+            python manage.py cov
