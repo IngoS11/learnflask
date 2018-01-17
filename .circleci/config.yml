@@ -24,6 +24,7 @@ jobs:
             mkdir -p data/
             python manage.py db init
             python manage.py db migrate
+            python manage.py db upgrade 
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
