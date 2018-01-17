@@ -10,7 +10,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'thisisthesecretkey'
 app.config['SQLALCHEMY_DATABASE_URI'] \
-    = 'sqlite:////vagrant/data/tasks.db'
+    = 'sqlite:///data/tasks.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 db = SQLAlchemy(app)
