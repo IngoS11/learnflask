@@ -12,6 +12,10 @@ jobs:
       - checkout
 
       - run:
+          name: install sqlite3
+          command: apt-get install -y sqlite3
+
+      - run:
           name: install dependencies
           command: |
             python3 -m venv venv
