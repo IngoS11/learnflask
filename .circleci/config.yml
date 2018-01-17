@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - checkout
-      - run: sudo apt install -y libsqlite3-dev
+      - run: sudo apt install -y sqlite3
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
