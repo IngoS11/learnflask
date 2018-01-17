@@ -1,6 +1,4 @@
-# Python CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-python/ for more details
+# Flask build file 
 #
 version: 2
 jobs:
@@ -23,6 +21,7 @@ jobs:
           name: initialize database
           command: |
             . venv/bin/activate
+            mkdir -p data/
             python manage.py db init
             python manage.py db migrate
             python manage.py db upgrade
