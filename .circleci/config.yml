@@ -11,13 +11,21 @@ jobs:
     steps:
       - checkout
 
-      - run:
-          name: install sqlite3
-          command: apt-get update -qq && apt-get install -y sqlite3
-
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
           name: install dependencies
           command: |
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
+      - run:
+          name: initialize database
+          command: |
+            python manage.py db init
+            python manage.py db migrate
+            python manage.py db upgrade
+      - save_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          paths:
+            - "venv"
