@@ -8,7 +8,7 @@ the is easiest set up with [Vagrant](http://www.vagrant.io) and [VirtualBox](htt
 ### Prerequisites
 * Download and install [Virtual Box](https://www.virtualbox.org)
 * Download and install [Vagrant](http://www.vagrant.io)
-* Clone the Repository ```git clone https://github.com/IngoS11/learnflask```
+* Clone the Repository ```git clone https://github.com/IngoS11/learnflask.git```
 * Check that some process on your local machine is not using port 5000, this is mapped into the Virtual Box by Vagrant
 * On the command line create the Virtual Box via Vagrant using ```vagrant up```
 
@@ -40,6 +40,11 @@ once the database is created use:
 * tmux
 * httpie
 * flake8
+
+### Things for the future
+* Integrate Test Coverage Sytem like [Coveralls](https://coveralls.io)
+* Build a Docker Container and deploy it to the [Docker Hub](https://hub.docker.com)
+* Automated Deployment on AWS in various ways
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
