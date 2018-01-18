@@ -1,19 +1,17 @@
 SHELL = /bin/bash
 WORKDIR = /vagrant
+FLASK_DEBUG = 1
+FLASK_APP = apiserver.py
 
 flask/server:
-		python project.server
+		flask run
 
 db/setup: db/create db/seed
 
 db/create:
 		@echo "--> setup database if not exists"
-		test -f data/tasks.db || mkdir -p data && python manage.py db init && \
-python manage.py db migrate && python manage.py db upgrade
-
-db/seed:
-		@echo "--> seeding the database"
-		python manage.py seed
+		test -f data/tasks.db || mkdir -p data && flask db init && \
+flask db migrate && flask db upgrade
 
 pip/freeze:
 		@echo "--> updating python dependencies to requirements.txt"
