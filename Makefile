@@ -2,7 +2,7 @@ SHELL = /bin/bash
 WORKDIR = /vagrant
 
 flask/server:
-		python app.py
+		python project.server
 
 db/setup: db/create db/seed
 

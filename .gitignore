@@ -8,7 +8,6 @@ __pycache__
 *.pyc
 tags
 data
-migrations
 env.sh
 .DS_Store
 *.coverage

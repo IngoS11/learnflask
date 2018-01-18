@@ -21,18 +21,11 @@ jobs:
           name: initialize database
           command: |
             . venv/bin/activate
-            python manage.py db init
-            python manage.py db migrate
-            python manage.py db upgrade
+            export FLASK_APP=apiserver.py
+            flask db init
+            flask db migrate
+            flask db upgrade
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - "venv"
-      - run:
-          name: Run Tests
-          command: |
-            . venv/bin/activate
-            python manage.py cov
-      - store_artifacts:
-          path: test-reports
-          destination: test-reports
