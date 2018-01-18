@@ -2,7 +2,7 @@
 A project to learn how to build an API server with Python and Flask. It also serves me to learn Vim and get used to writing code with it, write good code and tests, play around with GitHub, CircleCi and other CI/CD tools available as SaaS service on the internet.
 
 ## Getting Started
-the is easiest set up with [Vagrant](http://www.vagrant.io) and [VirtualBox](https://www.virtualbox.org)
+the easiest set up is via [Vagrant](http://www.vagrant.io) and [VirtualBox](https://www.virtualbox.org)
 
 
 ### Prerequisites
