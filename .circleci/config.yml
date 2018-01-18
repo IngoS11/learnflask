@@ -17,6 +17,7 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
       - run: mkdir -p data/
+      - run: rm -r migrations 
       - run:
           name: initialize database
           command: |
